@@ -23,6 +23,7 @@ class NewDeckView extends React.Component {
         else {
             this.setState({title: ''})
             this.props.dispatch(addDeck(title))
+            this.props.navigation.navigate('DeckView', {deckTitle: title})
         }
     }
 

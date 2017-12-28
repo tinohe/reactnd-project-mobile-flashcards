@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert, Keyboard  } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
@@ -21,6 +21,7 @@ class NewDeckView extends React.Component {
             this.showDuplicateTitleAlert()
         }
         else {
+            Keyboard.dismiss()
             this.setState({title: ''})
             this.props.dispatch(addDeck(title))
             this.props.navigation.navigate('DeckView', {deckTitle: title})

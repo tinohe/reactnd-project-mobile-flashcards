@@ -8,6 +8,12 @@ import Deck from './Deck'
 
 class DeckView extends React.Component {
 
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: navigation.state.params.deckTitle
+        }
+    }
+
     render = () => {
         const { deck } = this.props
         return (

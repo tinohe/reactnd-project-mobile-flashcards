@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
@@ -12,7 +12,35 @@ class NewDeck extends React.Component {
     }
 
     onSubmit = () => {
-        this.props.dispatch(addDeck(this.state.title))
+        const title = this.state.title
+
+        if (title.length === 0) {
+            this.showMissingTitleAlert()
+        }
+        else if (this.props.decks.some((deck) => (deck.title === title))) {
+            this.showDuplicateTitleAlert()
+        }
+        else {
+            this.props.dispatch(addDeck(title))
+        }
+    }
+
+    showMissingTitleAlert = () => {
+        Alert.alert(
+            'Missing title!',
+            'Please enter a title for this deck',
+            [{ text: 'OK' }],
+            { cancelable: false }
+        )
+    }
+
+    showDuplicateTitleAlert = () => {
+        Alert.alert(
+            'A deck with this title already exists!',
+            'Please enter a different title for this deck',
+            [{ text: 'OK' }],
+            { cancelable: false }
+        )
     }
 
     render = () => {
@@ -49,8 +77,8 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = (state) => {
-    return {}
+const mapStateToProps = (decks) => {
+    return { decks }
 }
 
 export default connect(mapStateToProps)(NewDeck)

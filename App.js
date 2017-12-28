@@ -40,6 +40,10 @@ const Tabs = TabNavigator(
     }
   },
   {
+    navigationOptions: {
+      header: null
+    },
+    
     tabBarOptions: {
       style: {
         backgroundColor: darkBlue,

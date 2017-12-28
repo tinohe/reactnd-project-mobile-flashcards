@@ -6,8 +6,8 @@ import reducer from './reducers'
 import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkBlue, lightBlue, grayBlue, white, orange } from './utils/colors'
-import DeckList from './components/DeckList'
-import NewDeck from './components/NewDeck'
+import DeckListView from './components/DeckListView'
+import NewDeckView from './components/NewDeckView'
 
 export default class App extends React.Component {
 
@@ -25,14 +25,14 @@ export default class App extends React.Component {
 
 const Tabs = TabNavigator(
   {
-    DeckList: {
-      screen: DeckList,
+    DeckListView: {
+      screen: DeckListView,
       navigationOptions: {
         tabBarLabel: 'Decks',
       },
     },
-    NewDeck: {
-      screen: NewDeck,
+    NewDeckView: {
+      screen: NewDeckView,
       navigationOptions: {
         tabBarLabel: 'New deck',
       },

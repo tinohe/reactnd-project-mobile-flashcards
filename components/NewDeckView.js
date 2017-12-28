@@ -5,7 +5,7 @@ import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
 import { addDeck } from '../actions'
 
-class NewDeck extends React.Component {
+class NewDeckView extends React.Component {
 
     state = {
         title: ''
@@ -81,4 +81,4 @@ const mapStateToProps = (decks) => {
     return { decks }
 }
 
-export default connect(mapStateToProps)(NewDeck)
+export default connect(mapStateToProps)(NewDeckView)

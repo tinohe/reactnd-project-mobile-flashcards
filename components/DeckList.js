@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
     }
 })
 
-mapStateToProps = (state) => {
+mapStateToProps = (decks) => {
     return {
-        decks: state
+        decks
     }
 }
 

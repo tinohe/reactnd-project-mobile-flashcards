@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Alert, Keyboard  } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
@@ -22,9 +22,9 @@ class NewDeckView extends React.Component {
         }
         else {
             Keyboard.dismiss()
-            this.setState({title: ''})
+            this.setState({ title: '' })
             this.props.dispatch(addDeck(title))
-            this.props.navigation.navigate('DeckView', {deckTitle: title})
+            this.props.navigation.navigate('DeckView', { deckTitle: title })
         }
     }
 
@@ -49,34 +49,43 @@ class NewDeckView extends React.Component {
     render = () => {
 
         return (
-            <View>
+            <View style={styles.mainContainer}>
                 <Text style={styles.text}>What is the title of your new deck?</Text>
-                <TextInput defaultValue='Deck title' maxLength={255} style={styles.input} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}></TextInput>
-                <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
+                <View style={styles.inputContainer}>
+                    <TextInput placeholder='Deck title' maxLength={50} style={styles.input} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}></TextInput>
+                    <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        justifyContent: 'space-around',
+        margin: 20,
+    },
     text: {
-        margin: 10,
+        textAlign: 'center',
+        fontSize: 32
+    },
+    inputContainer: {
+        flex: 1,
+        marginTop: 20,
+        padding: 20,
     },
     input: {
         borderColor: orange,
         borderWidth: 1,
         borderRadius: 5,
-        margin: 10,
         padding: 10
     },
     submit: {
         color: white,
         backgroundColor: orange,
         borderColor: orange,
-        borderWidth: 1,
-        borderRadius: 5,
-        margin: 10,
-        padding: 10
+        margin: 40
     }
 })
 

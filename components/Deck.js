@@ -18,8 +18,6 @@ export default class Deck extends Component {
     }
 
     onPress = () => {
-        //alert(this.props.deck.title)
-        //alert(this.props.navigation)
         this.props.navigation.navigate('DeckView', {deckTitle: this.props.deck.title})
     }
 }
@@ -30,8 +28,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         backgroundColor: darkBlue,
-        margin: 15,
-        padding: 5
+        marginTop: 5,
+        marginBottom: 5,
+        padding: 10
     },
     title: {
         textAlign: 'center',

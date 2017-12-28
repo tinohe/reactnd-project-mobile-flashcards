@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { orange, white } from '../utils/colors'
 
@@ -11,23 +11,28 @@ class DeckListView extends React.Component {
     render = () => {
         const { decks, navigation } = this.props
         return (
-            <View>
+            <View style={styles.container}>
                 {decks.length > 0 &&
-                    decks.map((deck) => (
-                        <Deck key={deck.title} deck={deck} navigation={navigation}/>
-                    ))
+                    <View>
+                        {decks.map((deck) => (
+                            <Deck key={deck.title} deck={deck} navigation={navigation} />
+                        ))}
+                    </View>
                 }
                 {decks.length === 0 &&
-                    <Text>No decks available yet</Text>}
+                    <Text style={styles.text} >Sorry, no decks available yet!</Text>}
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    reset: {
+    container: {
+        margin: 20
+    },
+    text: {
         textAlign: 'center',
-        color: orange,
+        fontSize: 26
     }
 })
 

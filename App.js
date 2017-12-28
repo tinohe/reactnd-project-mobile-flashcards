@@ -15,7 +15,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          <MyStatusBar backgroundColor={grayBlue} barStyle="light-content" />
+          <MyStatusBar backgroundColor={darkBlue} barStyle="light-content" />
           <Tabs />
         </View>
       </Provider>
@@ -23,25 +23,29 @@ export default class App extends React.Component {
   }
 }
 
-const Tabs = TabNavigator({
-  DeckList: {
-    screen: DeckList,
-    navigationOptions: {
-      tabBarLabel: 'Decks',
+const Tabs = TabNavigator(
+  {
+    DeckList: {
+      screen: DeckList,
+      navigationOptions: {
+        tabBarLabel: 'Decks',
+      },
     },
+    NewDeck: {
+      screen: NewDeck,
+      navigationOptions: {
+        tabBarLabel: 'New deck',
+      },
+    }
   },
-  NewDeck: {
-    screen: NewDeck,
-    navigationOptions: {
-      tabBarLabel: 'New deck',
-    },
+  {
     tabBarOptions: {
       style: {
-        backgroundColor: 'darkBlue',
+        backgroundColor: darkBlue,
       },
     }
   }
-})
+)
 
 MyStatusBar = ({ backgroundColor, ...props }) => {
   return (

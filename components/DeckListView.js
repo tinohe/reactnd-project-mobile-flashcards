@@ -9,12 +9,12 @@ import Deck from './Deck'
 class DeckListView extends React.Component {
 
     render = () => {
-        const { decks } = this.props
+        const { decks, navigation } = this.props
         return (
             <View>
                 {decks.length > 0 &&
                     decks.map((deck) => (
-                        <Deck key={deck.title} deck={deck}/>
+                        <Deck key={deck.title} deck={deck} navigation={navigation}/>
                     ))
                 }
                 {decks.length === 0 &&

@@ -21,6 +21,7 @@ class NewDeckView extends React.Component {
             this.showDuplicateTitleAlert()
         }
         else {
+            this.setState({title: ''})
             this.props.dispatch(addDeck(title))
         }
     }

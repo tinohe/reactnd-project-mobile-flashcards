@@ -1,20 +1,27 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { white, darkBlue, lightBlue, grayBlue } from '../utils/colors'
 
-export default function Deck({ deck }) {
+export default class Deck extends Component {
 
-    return (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Text style={styles.title}>{deck.title}</Text>
-            <Text style={styles.questions}>{deck.questions.length} cards</Text>
-        </TouchableOpacity>
 
-    )
-}
+    render = () => {
+        const { deck } = this.props
 
-const onPress = () => {
-    alert('pressed')
+        return (
+            <TouchableOpacity style={styles.container} onPress={this.onPress}>
+                <Text style={styles.title}>{deck.title}</Text>
+                <Text style={styles.questions}>{deck.questions.length} cards</Text>
+            </TouchableOpacity>
+
+        )
+    }
+
+    onPress = () => {
+        //alert(this.props.deck.title)
+        //alert(this.props.navigation)
+        this.props.navigation.navigate('DeckView', {deckTitle: this.props.deck.title})
+    }
 }
 
 const styles = StyleSheet.create({
@@ -29,11 +36,11 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         color: grayBlue,
-        fontSize: 20
+        fontSize: 18
     },
     questions: {
         textAlign: 'center',
         color: lightBlue,
-        fontSize: 14
+        fontSize: 12
     }
 })

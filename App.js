@@ -8,6 +8,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkBlue, lightBlue, grayBlue, white, orange } from './utils/colors'
 import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
+import DeckView from './components/DeckView'
 
 export default class App extends React.Component {
 
@@ -16,7 +17,7 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
           <MyStatusBar backgroundColor={darkBlue} barStyle="light-content" />
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     )
@@ -46,6 +47,21 @@ const Tabs = TabNavigator(
     }
   }
 )
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  }
+})
 
 MyStatusBar = ({ backgroundColor, ...props }) => {
   return (

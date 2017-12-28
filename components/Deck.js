@@ -11,7 +11,7 @@ export default class Deck extends Component {
         return (
             <TouchableOpacity style={styles.container} onPress={this.onPress}>
                 <Text style={styles.title}>{deck.title}</Text>
-                <Text style={styles.questions}>{deck.questions.length} cards</Text>
+                <Text style={styles.questions}>{deck.questions ? deck.questions.length : 0} cards</Text>
             </TouchableOpacity>
 
         )

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { orange, white } from '../utils/colors'
 
 import Deck from './Deck'
 
@@ -12,17 +11,17 @@ class DeckListView extends React.Component {
         const { decks, navigation } = this.props
         return (
             <View style={styles.container}>
-                {decks.length > 0 &&
-                    <View>
-                        {decks.map((deck) => (
-                            <Deck key={deck.title} deck={deck} navigation={navigation} />
-                        ))}
-                    </View>
-                }
-                {decks.length === 0 &&
-                    <Text style={styles.text} >Sorry, no decks available yet!</Text>}
+                {!this.areDecksAvailable() && <Text style={styles.text} >Sorry, no decks available yet!</Text>}
+                {this.areDecksAvailable() && <FlatList
+                    data={decks}
+                    renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
+                    keyExtractor={(deck, index) => (deck.title)} />}
             </View>
         )
+    }
+
+    areDecksAvailable = () => {
+        return this.props.decks.length > 0
     }
 }
 

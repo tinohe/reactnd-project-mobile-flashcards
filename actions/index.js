@@ -1,4 +1,4 @@
-import { removeDecks, fetchDecks, createDeck } from '../api'
+import { removeDecks, fetchDecks, createDeck, createCard } from '../api'
 
 export const CLEAR_DECKS = 'CLEAR_DECKS'
 export const GET_DECKS = 'GET_DECKS'
@@ -39,9 +39,13 @@ export function addDeck(title) {
 }
 
 export function addCard(cardData) {
-
-    return {
-        type: ADD_CARD,
-        cardData
+    return function (dispatch) {
+        return createCard(cardData)
+            .then(() => {
+                return dispatch({
+                    type: ADD_CARD,
+                    cardData
+                })
+            })
     }
 }

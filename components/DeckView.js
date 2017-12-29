@@ -46,7 +46,7 @@ class DeckView extends React.Component {
     }
 
     onStartQuiz = () => {
-        alert('start quiz')
+        alert('start quiz with ' + JSON.stringify(this.props.deck))
     }
 }
 

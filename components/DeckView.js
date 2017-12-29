@@ -31,8 +31,13 @@ class DeckView extends React.Component {
         )
     }
 
+    onNavigateBack = () => {
+        // Workaround to update the card-count in the view, because react-navigation doesn't re-render automatically upon a goBack(). 
+        this.forceUpdate()
+    }
+
     onAddCard = () => {
-        alert('add card')
+        this.props.navigation.navigate('NewQuestionView', { deckTitle: this.props.deck.title, onNavigateBack: this.onNavigateBack })
     }
 
     onStartQuiz = () => {

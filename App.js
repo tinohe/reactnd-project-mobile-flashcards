@@ -9,6 +9,7 @@ import { darkBlue, lightBlue, grayBlue, white, orange } from './utils/colors'
 import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
 import DeckView from './components/DeckView'
+import NewQuestionView from './components/NewQuestionView'
 
 export default class App extends React.Component {
 
@@ -43,7 +44,7 @@ const Tabs = TabNavigator(
     navigationOptions: {
       header: null
     },
-    
+
     tabBarOptions: {
       style: {
         backgroundColor: darkBlue,
@@ -58,6 +59,15 @@ const MainNavigator = StackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  },
+  NewQuestionView: {
+    screen: NewQuestionView,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

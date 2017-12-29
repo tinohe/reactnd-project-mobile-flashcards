@@ -1,11 +1,40 @@
+import { removeDecks, fetchDecks, createDeck } from '../api'
+
+export const CLEAR_DECKS = 'CLEAR_DECKS'
+export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
 export const ADD_CARD = 'ADD_CARD'
 
-export function addDeck(title) {
+export function getDecks() {
+    return function (dispatch) {
+        return fetchDecks()
+            .then((decks) => {
+                return dispatch({
+                    type: GET_DECKS,
+                    decks
+                })
+            })
+    }
+}
 
-    return {
-        type: ADD_DECK,
-        title
+export function clearDecks() {
+    return function (dispatch) {
+        return removeDecks()
+            .then(() => dispatch({
+                type: CLEAR_DECKS
+            }))
+    }
+}
+
+export function addDeck(title) {
+    return function (dispatch) {
+        return createDeck(title)
+            .then(() => {
+                return dispatch({
+                    type: ADD_DECK,
+                    title
+                })
+            })
     }
 }
 

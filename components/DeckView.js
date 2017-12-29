@@ -17,16 +17,21 @@ class DeckView extends React.Component {
 
     render = () => {
         const { deck } = this.props
+
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>{deck.title}</Text>
-                    <Text style={styles.cards}>{deck.cards.length} cards</Text>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TextButton style={styles.addCard} onPress={this.onAddCard}>Add card</TextButton>
-                    <TextButton style={styles.startQuiz} onPress={this.onStartQuiz}>Start quiz</TextButton>
-                </View>
+                {deck &&
+                    <View>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.title}>{deck.title}</Text>
+                            <Text style={styles.cards}>{deck.cards.length} cards</Text>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <TextButton style={styles.addCard} onPress={this.onAddCard}>Add card</TextButton>
+                            <TextButton style={styles.startQuiz} onPress={this.onStartQuiz}>Start quiz</TextButton>
+                        </View>
+                    </View>
+                }
             </View>
         )
     }

@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
 import reducer from './reducers'
 import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
@@ -13,9 +14,20 @@ import NewCardView from './components/NewCardView'
 
 export default class App extends React.Component {
 
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+  createReduxStore = () => {
+    return createStore(
+      reducer,
+      this.composeEnhancers(
+        applyMiddleware(thunk)
+      )
+    )
+  }
+
   render = () => {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={this.createReduxStore()}>
         <View style={{ flex: 1 }}>
           <MyStatusBar backgroundColor={darkBlue} barStyle="light-content" />
           <MainNavigator />

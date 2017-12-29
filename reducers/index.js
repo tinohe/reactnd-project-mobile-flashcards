@@ -1,9 +1,14 @@
-import { ADD_DECK, ADD_CARD } from '../actions'
+import { GET_DECKS, CLEAR_DECKS, ADD_DECK, ADD_CARD } from '../actions'
 
 
 export default function decks(state = [], action) {
-
     switch (action.type) {
+        case CLEAR_DECKS: {
+            return []
+        }
+        case GET_DECKS: {
+            return state.concat(action.decks)
+        }
         case ADD_DECK: {
             return state.concat({ title: action.title, cards: [] })
         }

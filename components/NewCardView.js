@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TextInput, Alert, Keyboard, KeyboardAvoidingVie
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
-import { addQuestion } from '../actions'
+import { addCard } from '../actions'
 
-class NewQuestionView extends React.Component {
+class NewCardView extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
@@ -31,7 +31,7 @@ class NewQuestionView extends React.Component {
         else {
             Keyboard.dismiss()
             this.setState({ question: '', answer: '' })
-            this.props.dispatch(addQuestion({ deckTitle, question, answer }))
+            this.props.dispatch(addCard({ deckTitle, question, answer }))
             this.props.navigation.state.params.onNavigateBack()
             this.props.navigation.goBack()
         }
@@ -95,4 +95,4 @@ mapStateToProps = (decks, { navigation }) => {
     }
 }
 
-export default connect(mapStateToProps)(NewQuestionView)
+export default connect(mapStateToProps)(NewCardView)

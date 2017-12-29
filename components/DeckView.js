@@ -21,7 +21,7 @@ class DeckView extends React.Component {
             <View style={styles.mainContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{deck.title}</Text>
-                    <Text style={styles.questions}>{deck.questions.length} cards</Text>
+                    <Text style={styles.cards}>{deck.cards.length} cards</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <TextButton style={styles.addCard} onPress={this.onAddCard}>Add card</TextButton>
@@ -37,7 +37,7 @@ class DeckView extends React.Component {
     }
 
     onAddCard = () => {
-        this.props.navigation.navigate('NewQuestionView', { deckTitle: this.props.deck.title, onNavigateBack: this.onNavigateBack })
+        this.props.navigation.navigate('NewCardView', { deckTitle: this.props.deck.title, onNavigateBack: this.onNavigateBack })
     }
 
     onStartQuiz = () => {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         color: darkBlue,
         fontSize: 26
     },
-    questions: {
+    cards: {
         textAlign: 'center',
         color: lightBlue,
         fontSize: 18

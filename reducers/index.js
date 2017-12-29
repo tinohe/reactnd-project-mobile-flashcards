@@ -1,17 +1,17 @@
-import { ADD_DECK, ADD_QUESTION } from '../actions'
+import { ADD_DECK, ADD_CARD } from '../actions'
 
 
 export default function decks(state = [], action) {
 
     switch (action.type) {
         case ADD_DECK: {
-            return state.concat({ title: action.title, questions: [] })
+            return state.concat({ title: action.title, cards: [] })
         }
-        case ADD_QUESTION: {
+        case ADD_CARD: {
 
             return state.map((deck) => {
-                if (deck.title === action.questionData.deckTitle) {
-                    deck.questions = deck.questions.concat({ question: action.questionData.question, answer: action.questionData.answer })
+                if (deck.title === action.cardData.deckTitle) {
+                    deck.cards = deck.cards.concat({ question: action.cardData.question, answer: action.cardData.answer })
                     return { ...deck }
                 } else {
                     return deck

@@ -1,5 +1,5 @@
 export const ADD_DECK = 'ADD_DECK'
-export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_CARD = 'ADD_CARD'
 
 export function addDeck(title) {
 
@@ -9,10 +9,10 @@ export function addDeck(title) {
     }
 }
 
-export function addQuestion(questionData) {
+export function addCard(cardData) {
 
     return {
-        type: ADD_QUESTION,
-        questionData
+        type: ADD_CARD,
+        cardData
     }
 }

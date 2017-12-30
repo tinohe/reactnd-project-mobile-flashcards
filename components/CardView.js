@@ -17,7 +17,18 @@ class CardView extends React.Component {
 
     state = {
         cardIndex: 0,
-        showAnswer: false
+        noOfCorrectAnswers: 0,
+        showAnswer: false,
+        showResult: false
+    }
+
+    resetState = () => {
+        this.setState(() => ({
+            cardIndex: 0,
+            noOfCorrectAnswers: 0,
+            showAnswer: false,
+            showResult: false
+        }))
     }
 
     render = () => {
@@ -27,25 +38,55 @@ class CardView extends React.Component {
 
         return (
             <View style={styles.mainContainer}>
-                <Text style={styles.progress}>{this.state.cardIndex + 1}/{totalCardCount}</Text>
-                <View style={styles.questionAnswerContainer}>
-                    <Text style={styles.questionAnswer}>{this.state.showAnswer ? card.answer : card.question}</Text>
-                    <View style={styles.buttonContainer}>
-                        <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
-                    </View>
-                    {this.state.showAnswer &&
+                {this.state.showResult &&
+                    <View>
+                        <Text style={styles.scoreHeadline}>Your final score for deck '{deck.title}':</Text>
+                        <Text style={styles.scoreResult}>{this.state.noOfCorrectAnswers} out of {totalCardCount} answers were correct!</Text>
                         <View style={styles.buttonContainer}>
-                            <TextButton style={styles.correct} onPress={this.onNext}>Correct</TextButton>
-                            <TextButton style={styles.incorrect} onPress={this.onNext}>Incorrect</TextButton>
+                            <TextButton style={styles.backToDeck} onPress={this.onBackToDeck}>Back to deck</TextButton>
+                            <TextButton style={styles.restart} onPress={this.onRestart}>Restart quiz</TextButton>
                         </View>
-                    }
+                    </View>
+                }
+                {!this.state.showResult && <View>
+                    <Text style={styles.progress}>{this.state.cardIndex + 1}/{totalCardCount}</Text>
+                    <View style={styles.questionAnswerContainer}>
+                        <Text style={styles.questionAnswer}>{this.state.showAnswer ? card.answer : card.question}</Text>
+                        <View style={styles.buttonContainer}>
+                            <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
+                        </View>
+                        {this.state.showAnswer &&
+                            <View style={styles.buttonContainer}>
+                                <TextButton style={styles.correct} onPress={this.onCorrect}>Correct</TextButton>
+                                <TextButton style={styles.incorrect} onPress={this.onIncorrect}>Incorrect</TextButton>
+                            </View>
+                        }
+                    </View>
                 </View>
+                }
             </View>
         )
     }
 
+    onRestart = () => {
+        this.resetState()
+    }
+
+    onBackToDeck = () => {
+        this.props.navigation.navigate('DeckView', {deckTitle: this.props.deck.title})
+    }
+
     onToggleAnswer = () => {
         this.setState((state) => ({ showAnswer: !state.showAnswer }))
+    }
+
+    onCorrect = () => {
+        this.setState(state => ({ noOfCorrectAnswers: state.noOfCorrectAnswers + 1 }))
+        this.onNext()
+    }
+
+    onIncorrect = () => {
+        this.onNext()
     }
 
     onNext = () => {
@@ -53,8 +94,7 @@ class CardView extends React.Component {
             this.setState((state) => ({ cardIndex: state.cardIndex + 1, showAnswer: false }))
         }
         else {
-            alert('showing result')
-            //this.props.navigation.navigate('NewCardView', { deckTitle: this.props.deck.title, onNavigateBack: this.onNavigateBack })
+            this.setState(() => ({ showResult: true }))
         }
     }
 }
@@ -62,6 +102,17 @@ class CardView extends React.Component {
 const styles = StyleSheet.create({
     mainContainer: {
         margin: 20
+    },
+    scoreHeadline: {
+        fontSize: 26,
+        color: darkBlue,
+        textAlign: 'center'
+    },
+    scoreResult: {
+        fontSize: 18,
+        color: darkBlue,
+        textAlign: 'center',
+        marginTop: 20
     },
     progress: {
         fontSize: 14,
@@ -85,20 +136,30 @@ const styles = StyleSheet.create({
         borderColor: orange,
         margin: 5,
     },
-
     correct: {
         backgroundColor: lightGreen,
         borderColor: darkGreen,
         color: darkGreen,
         margin: 5,
     },
-
     incorrect: {
         backgroundColor: lightRed,
         borderColor: darkRed,
         color: darkRed,
         margin: 5,
     },
+    restart: {
+        backgroundColor: orange,
+        color: white,
+        borderColor: orange,
+        margin: 5,
+    },
+    backToDeck: {
+        backgroundColor: white,
+        color: orange,
+        borderColor: orange,
+        margin: 5,
+    }
 })
 
 mapStateToProps = (decks, { navigation }) => {

@@ -83,7 +83,7 @@ class CardView extends React.Component {
     }
 
     onBackToDeck = () => {
-        this.props.navigation.navigate('DeckView', { deckTitle: this.props.deck.title })
+        this.props.navigation.goBack()
     }
 
     onToggleAnswer = () => {

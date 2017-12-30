@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { white, darkBlue, lightBlue, grayBlue } from '../utils/colors'
+import { getCardsText } from '../utils/utils'
 
 export default class Deck extends Component {
 
 
     render = () => {
         const { deck } = this.props
+        const noOfCards = deck.cards ? deck.cards.length : 0
 
         return (
             <TouchableOpacity style={styles.container} onPress={this.onPress}>
                 <Text style={styles.title}>{deck.title}</Text>
-                <Text style={styles.cards}>{deck.cards ? deck.cards.length : 0} cards</Text>
+                <Text style={styles.cards}>{noOfCards} {getCardsText(noOfCards)}</Text>
             </TouchableOpacity>
 
         )

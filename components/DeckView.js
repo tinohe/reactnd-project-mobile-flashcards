@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue } from '../utils/colors'
+import {getCardsText} from '../utils/utils'
 import TextButton from './TextButton'
-
 import Deck from './Deck'
 
 class DeckView extends React.Component {
@@ -24,7 +24,7 @@ class DeckView extends React.Component {
                     <View>
                         <View style={styles.textContainer}>
                             <Text style={styles.title}>{deck.title}</Text>
-                            <Text style={styles.cards}>{deck.cards.length} cards</Text>
+                            <Text style={styles.cards}>{deck.cards.length} {getCardsText(deck.cards.length)}</Text>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TextButton style={styles.addCard} onPress={this.onAddCard}>Add card</TextButton>

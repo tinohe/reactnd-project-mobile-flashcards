@@ -28,7 +28,7 @@ export function fetchDecks() {
         .then((results) => {
             return JSON.parse(results)
         })
-        .then((decks) => (Object.keys(decks).map(key => decks[key])))
+        .then((decks) => (decks ? Object.keys(decks).map(key => decks[key]) : []))
 }
 
 export function removeDecks() {

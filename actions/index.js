@@ -17,7 +17,7 @@ export function getDecks() {
     }
 }
 
-export function clearDecks() {
+export function deleteAllDecks() {
     return function (dispatch) {
         return removeDecks()
             .then(() => dispatch({

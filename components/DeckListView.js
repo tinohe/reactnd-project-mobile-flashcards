@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import { orange, white, darkBlue } from '../utils/colors'
 
 import TextButton from './TextButton'
 
-import { removeAllDecks, fetchDecks, createDeck } from '../api'
-import { clearDecks, getDecks } from '../actions'
+import { deleteAllDecks, getDecks } from '../actions'
 
 import Deck from './Deck'
 
@@ -16,21 +16,34 @@ class DeckListView extends React.Component {
         this.props.dispatch(getDecks())
     }
 
-    onClear = () => {
-        this.props.dispatch(clearDecks())
+    onDeleteAllDecks = () => {
+        Alert.alert(
+            'Really delete all decks?',
+            'Decks cannot be restored',
+            [
+                { text: 'No' },
+                { text: 'Yes', onPress: () => this.props.dispatch(deleteAllDecks())},
+            ],
+            { cancelable: false }
+        )
+       
     }
 
     render = () => {
         const { decks, navigation } = this.props
 
         return (
-            <View>
-                {false && <TextButton onPress={this.onClear}>Clear </TextButton>}
-                {!this.areDecksAvailable() && <Text style={styles.text} >Sorry, no decks available yet!</Text>}
-                {this.areDecksAvailable() && <FlatList style={styles.list}
-                    data={decks}
-                    renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
-                    keyExtractor={(deck, index) => (deck.title)} />}
+            <View style={styles.mainContainer}>
+                {this.areDecksAvailable() &&
+                    <View>
+                        <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
+                        <Text style={styles.decks}>Available decks:</Text>
+                        <FlatList
+                            data={decks}
+                            renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
+                            keyExtractor={(deck, index) => (deck.title)} />
+                    </View>}
+                {!this.areDecksAvailable() && <Text style={styles.sorry} >Sorry, no decks available yet!</Text>}
             </View>
         )
     }
@@ -41,14 +54,25 @@ class DeckListView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    list: {
+    mainContainer: {
         margin: 20
     },
-    text: {
-        margin: 20,
+    deleteAllDecks: {
+        backgroundColor: orange,
+        color: white,
+        borderColor: orange,
+        marginBottom: 20,
+    },
+    sorry: {
         textAlign: 'center',
+        color: darkBlue,
         fontSize: 26
-    }
+    },
+    decks: {
+        textAlign: 'center',
+        color: darkBlue,
+        fontSize: 14
+    },
 })
 
 mapStateToProps = (decks) => {

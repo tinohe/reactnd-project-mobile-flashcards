@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue, lightGreen, lightRed, darkGreen, darkRed } from '../utils/colors'
 import TextButton from './TextButton'
@@ -19,7 +19,9 @@ class CardView extends React.Component {
         cardIndex: 0,
         noOfCorrectAnswers: 0,
         showAnswer: false,
-        showResult: false
+        showResult: false,
+        bounceValue: new Animated.Value(1),
+        opacity: new Animated.Value(0),
     }
 
     resetState = () => {
@@ -27,11 +29,14 @@ class CardView extends React.Component {
             cardIndex: 0,
             noOfCorrectAnswers: 0,
             showAnswer: false,
-            showResult: false
+            showResult: false,
+            bounceValue: new Animated.Value(1),
+            opacity: new Animated.Value(0),
         }))
     }
 
     render = () => {
+
         return (
             <View style={styles.mainContainer}>
                 {this.state.showResult && this.createResultComponent()}
@@ -58,23 +63,23 @@ class CardView extends React.Component {
         const { deck } = this.props
         const totalCardCount = deck.cards.length
         const card = deck.cards[this.state.cardIndex]
+        const { opacity } = this.state
 
         return <View>
             <Text style={styles.progress}>{this.state.cardIndex + 1}/{totalCardCount}</Text>
             <View style={styles.questionAnswerContainer}>
-                <Text style={styles.questionAnswer}>{this.state.showAnswer ? card.answer : card.question}</Text>
+                <Animated.Text
+                    style={[styles.questionAnswer, { transform: [{ scale: this.state.bounceValue }] }]}>
+                    {this.state.showAnswer ? card.answer : card.question}
+                </Animated.Text>
                 <View style={styles.buttonContainer}>
                     <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
                 </View>
-                {this.state.showAnswer && this.createAnswerButtons()}
+                <Animated.View style={[styles.buttonContainer, { opacity }]}>
+                    <TextButton style={styles.correct} onPress={this.onCorrect} disabled={!this.state.showAnswer}>Correct</TextButton>
+                    <TextButton style={styles.incorrect} onPress={this.onIncorrect} disabled={!this.state.showAnswer}>Incorrect</TextButton>
+                </Animated.View>
             </View>
-        </View>
-    }
-
-    createAnswerButtons = () => {
-        return <View style={styles.buttonContainer}>
-            <TextButton style={styles.correct} onPress={this.onCorrect}>Correct</TextButton>
-            <TextButton style={styles.incorrect} onPress={this.onIncorrect}>Incorrect</TextButton>
         </View>
     }
 
@@ -87,7 +92,16 @@ class CardView extends React.Component {
     }
 
     onToggleAnswer = () => {
+        const targetOpacity = this.state.showAnswer ? 0 : 1
         this.setState((state) => ({ showAnswer: !state.showAnswer }))
+        Animated.parallel([
+            Animated.sequence([
+                Animated.timing(this.state.bounceValue, { duration: 400, toValue: 2 }),
+                Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4 })]),
+            Animated.timing(this.state.opacity, { duration: 400, toValue: targetOpacity })
+        ]).start()
+
+
     }
 
     onCorrect = () => {

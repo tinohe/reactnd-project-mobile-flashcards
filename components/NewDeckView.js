@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert, Keyboard, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
-import { orange, white } from '../utils/colors'
+import { orange, white, darkBlue, lightBlue } from '../utils/colors'
 import { addDeck } from '../actions'
+
+import CharCount from './CharCount'
 
 class NewDeckView extends React.Component {
 
@@ -52,13 +54,16 @@ class NewDeckView extends React.Component {
             <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
                 <Text style={styles.text}>What is the title of your new deck?</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput placeholder='Deck title' maxLength={50} style={styles.input} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}></TextInput>
+                    <TextInput placeholder='Deck title' maxLength={maxLength} style={styles.input} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}></TextInput>
+                    <CharCount maxLength={maxLength} currentLength={this.state.title.length} />
                     <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
                 </View>
             </KeyboardAvoidingView>
         )
     }
 }
+
+const maxLength = 50
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -68,6 +73,7 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
+        color: darkBlue,
         fontSize: 32
     },
     inputContainer: {
@@ -81,6 +87,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10
     },
+
     submit: {
         color: white,
         backgroundColor: orange,

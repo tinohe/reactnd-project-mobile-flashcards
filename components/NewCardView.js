@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert, Keyboard, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
+import CharCount from './CharCount'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
+
 
 class NewCardView extends React.Component {
 
@@ -60,12 +62,16 @@ class NewCardView extends React.Component {
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
                 <TextInput placeholder='Question' maxLength={50} style={styles.input} value={this.state.question} onChangeText={(text) => this.setState({ question: text })}></TextInput>
+                <CharCount maxLength={maxLength} currentLength={this.state.question.length} />
                 <TextInput placeholder='Answer' maxLength={50} style={styles.input} value={this.state.answer} onChangeText={(text) => this.setState({ answer: text })}></TextInput>
+                <CharCount maxLength={maxLength} currentLength={this.state.answer.length} />
                 <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
             </KeyboardAvoidingView>
         )
     }
 }
+
+const maxLength = 50
 
 const styles = StyleSheet.create({
     mainContainer: {

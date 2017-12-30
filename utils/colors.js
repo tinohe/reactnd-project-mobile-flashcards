@@ -4,3 +4,8 @@ export const grayBlue= '#DAE9F5'
 export const white = '#FFFFFF'
 export const orange = '#F26100'
 export const darkOrange = '#913A00'
+
+export const lightRed = '#FFABBE'
+export const lightGreen = '#9CE8C3'
+export const darkRed = '#593C42'
+export const darkGreen = '#3F5E4F'

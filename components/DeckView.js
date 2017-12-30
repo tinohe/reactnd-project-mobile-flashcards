@@ -46,14 +46,15 @@ class DeckView extends React.Component {
     }
 
     onStartQuiz = () => {
-        alert('start quiz with ' + JSON.stringify(this.props.deck))
+        this.props.navigation.navigate('CardView', { deckTitle: this.props.deck.title })
     }
 }
 
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        margin: 20
     },
     textContainer: {
     },

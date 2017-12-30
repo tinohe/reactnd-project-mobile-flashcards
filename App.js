@@ -11,6 +11,7 @@ import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
 import DeckView from './components/DeckView'
 import NewCardView from './components/NewCardView'
+import CardView from './components/CardView'
 
 export default class App extends React.Component {
 
@@ -80,6 +81,15 @@ const MainNavigator = StackNavigator({
   },
   NewCardView: {
     screen: NewCardView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  },
+  CardView: {
+    screen: CardView,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

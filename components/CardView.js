@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
         padding: 50,
     },
     toggleAnswer: {
-        backgroundColor: white,
-        color: orange,
+        backgroundColor: orange,
+        color: white,
         borderColor: orange,
         margin: 5,
     },

@@ -22,28 +22,18 @@ class DeckListView extends React.Component {
             'Decks cannot be restored',
             [
                 { text: 'No' },
-                { text: 'Yes', onPress: () => this.props.dispatch(deleteAllDecks())},
+                { text: 'Yes', onPress: () => this.props.dispatch(deleteAllDecks()) },
             ],
             { cancelable: false }
         )
-       
+
     }
 
     render = () => {
-        const { decks, navigation } = this.props
-
         return (
             <View style={styles.mainContainer}>
-                {this.areDecksAvailable() &&
-                    <View>
-                        <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
-                        <Text style={styles.decks}>Available decks:</Text>
-                        <FlatList
-                            data={decks}
-                            renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
-                            keyExtractor={(deck, index) => (deck.title)} />
-                    </View>}
-                {!this.areDecksAvailable() && <Text style={styles.sorry} >Sorry, no decks available yet!</Text>}
+                {this.areDecksAvailable() && this.createDecksAvailableComponent()}
+                {!this.areDecksAvailable() && this.createNoDecksAvailableComponent()}
             </View>
         )
     }
@@ -51,6 +41,22 @@ class DeckListView extends React.Component {
     areDecksAvailable = () => {
         return this.props.decks.length > 0
     }
+
+    createDecksAvailableComponent = () => {
+        return <View>
+            <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
+            <Text style={styles.decks}>Available decks:</Text>
+            <FlatList
+                data={this.props.decks}
+                renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
+                keyExtractor={(deck, index) => (deck.title)} />
+        </View>
+    }
+
+    createNoDecksAvailableComponent = () => {
+        return <Text style={styles.sorry} >Sorry, no decks available yet!</Text>
+    }
+
 }
 
 const styles = StyleSheet.create({

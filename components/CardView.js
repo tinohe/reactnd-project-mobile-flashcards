@@ -32,40 +32,50 @@ class CardView extends React.Component {
     }
 
     render = () => {
+        return (
+            <View style={styles.mainContainer}>
+                {this.state.showResult && this.createResultComponent()}
+                {!this.state.showResult && this.createQuestionAnswerComponent()}
+            </View>
+        )
+    }
+
+    createResultComponent = () => {
+        const { deck } = this.props
+        const totalCardCount = deck.cards.length
+
+        return <View>
+            <Text style={styles.scoreHeadline}>Your final score for deck '{deck.title}':</Text>
+            <Text style={styles.scoreResult}>{this.state.noOfCorrectAnswers} out of {totalCardCount} answers were correct!</Text>
+            <View style={styles.buttonContainer}>
+                <TextButton style={styles.backToDeck} onPress={this.onBackToDeck}>Back to deck</TextButton>
+                <TextButton style={styles.restart} onPress={this.onRestart}>Restart quiz</TextButton>
+            </View>
+        </View>
+    }
+
+    createQuestionAnswerComponent = () => {
         const { deck } = this.props
         const totalCardCount = deck.cards.length
         const card = deck.cards[this.state.cardIndex]
 
-        return (
-            <View style={styles.mainContainer}>
-                {this.state.showResult &&
-                    <View>
-                        <Text style={styles.scoreHeadline}>Your final score for deck '{deck.title}':</Text>
-                        <Text style={styles.scoreResult}>{this.state.noOfCorrectAnswers} out of {totalCardCount} answers were correct!</Text>
-                        <View style={styles.buttonContainer}>
-                            <TextButton style={styles.backToDeck} onPress={this.onBackToDeck}>Back to deck</TextButton>
-                            <TextButton style={styles.restart} onPress={this.onRestart}>Restart quiz</TextButton>
-                        </View>
-                    </View>
-                }
-                {!this.state.showResult && <View>
-                    <Text style={styles.progress}>{this.state.cardIndex + 1}/{totalCardCount}</Text>
-                    <View style={styles.questionAnswerContainer}>
-                        <Text style={styles.questionAnswer}>{this.state.showAnswer ? card.answer : card.question}</Text>
-                        <View style={styles.buttonContainer}>
-                            <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
-                        </View>
-                        {this.state.showAnswer &&
-                            <View style={styles.buttonContainer}>
-                                <TextButton style={styles.correct} onPress={this.onCorrect}>Correct</TextButton>
-                                <TextButton style={styles.incorrect} onPress={this.onIncorrect}>Incorrect</TextButton>
-                            </View>
-                        }
-                    </View>
+        return <View>
+            <Text style={styles.progress}>{this.state.cardIndex + 1}/{totalCardCount}</Text>
+            <View style={styles.questionAnswerContainer}>
+                <Text style={styles.questionAnswer}>{this.state.showAnswer ? card.answer : card.question}</Text>
+                <View style={styles.buttonContainer}>
+                    <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
                 </View>
-                }
+                {this.state.showAnswer && this.createAnswerButtons()}
             </View>
-        )
+        </View>
+    }
+
+    createAnswerButtons = () => {
+        return <View style={styles.buttonContainer}>
+            <TextButton style={styles.correct} onPress={this.onCorrect}>Correct</TextButton>
+            <TextButton style={styles.incorrect} onPress={this.onIncorrect}>Incorrect</TextButton>
+        </View>
     }
 
     onRestart = () => {
@@ -73,7 +83,7 @@ class CardView extends React.Component {
     }
 
     onBackToDeck = () => {
-        this.props.navigation.navigate('DeckView', {deckTitle: this.props.deck.title})
+        this.props.navigation.navigate('DeckView', { deckTitle: this.props.deck.title })
     }
 
     onToggleAnswer = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue } from '../utils/colors'
 import TextButton from './TextButton'
@@ -46,7 +46,18 @@ class DeckView extends React.Component {
     }
 
     onStartQuiz = () => {
-        this.props.navigation.navigate('CardView', { deckTitle: this.props.deck.title })
+        if (this.props.deck.cards.length === 0) {
+            Alert.alert(
+                'Sorry, no cards available yet!',
+                'Please create at least one card for this deck to start a quiz',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: false }
+            )
+        } else {
+            this.props.navigation.navigate('CardView', { deckTitle: this.props.deck.title })
+        }
     }
 }
 

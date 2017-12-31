@@ -13,17 +13,14 @@ import DeckView from './components/DeckView'
 import NewCardView from './components/NewCardView'
 import CardView from './components/CardView'
 
+import { setLocalNotification } from './utils/utils'
+
 export default class App extends React.Component {
 
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-  createReduxStore = () => {
-    return createStore(
-      reducer,
-      this.composeEnhancers(
-        applyMiddleware(thunk)
-      )
-    )
+  componentDidMount() {
+    setLocalNotification()
   }
 
   render = () => {
@@ -34,6 +31,15 @@ export default class App extends React.Component {
           <MainNavigator />
         </View>
       </Provider>
+    )
+  }
+
+  createReduxStore = () => {
+    return createStore(
+      reducer,
+      this.composeEnhancers(
+        applyMiddleware(thunk)
+      )
     )
   }
 }

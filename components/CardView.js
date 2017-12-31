@@ -4,9 +4,10 @@ import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue, lightGreen, lightRed, darkGreen, darkRed } from '../utils/colors'
 import TextButton from './TextButton'
-
 import Deck from './Deck'
 import ButtonContainer from './ButtonContainer'
+
+import { setLocalNotification, clearLocalNotification } from '../utils/utils'
 
 class CardView extends React.Component {
 
@@ -128,6 +129,8 @@ class CardView extends React.Component {
         }
         else {
             this.setState(() => ({ showResult: true, opacity: new Animated.Value(0) }))
+            clearLocalNotification()
+                .then(() => setLocalNotification())
         }
     }
 }

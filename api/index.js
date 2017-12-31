@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 
-const STORAGE_KEY = 'DECK_STORE'
+const STORAGE_KEY = 'MOBILE_FLASHCARDS:decks'
 
 export function createDeck(deckTitle) {
     return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({

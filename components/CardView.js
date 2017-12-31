@@ -12,7 +12,7 @@ class CardView extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Quiz'
+            title: `Quiz: ${navigation.state.params.deckTitle}`
         }
     }
 
@@ -98,14 +98,16 @@ class CardView extends React.Component {
     onToggleAnswer = () => {
         const targetOpacity = this.state.showAnswer ? 0 : 1
         this.setState((state) => ({ showAnswer: !state.showAnswer }))
+        this.animateTransition(targetOpacity)
+    }
+
+    animateTransition = (targetOpacity) => {
         Animated.parallel([
             Animated.sequence([
                 Animated.timing(this.state.bounceValue, { duration: 400, toValue: 2 }),
                 Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4 })]),
             Animated.timing(this.state.opacity, { duration: 400, toValue: targetOpacity })
         ]).start()
-
-
     }
 
     onCorrect = () => {
@@ -118,11 +120,14 @@ class CardView extends React.Component {
     }
 
     onNext = () => {
+
         if (this.state.cardIndex + 1 < this.props.deck.cards.length) {
+            const targetOpacity = this.state.showAnswer ? 0 : 1
             this.setState((state) => ({ cardIndex: state.cardIndex + 1, showAnswer: false }))
+            this.animateTransition(targetOpacity)
         }
         else {
-            this.setState(() => ({ showResult: true }))
+            this.setState(() => ({ showResult: true, opacity: new Animated.Value(0) }))
         }
     }
 }

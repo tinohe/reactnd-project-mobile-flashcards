@@ -5,6 +5,7 @@ import TextInputWithCharCount from './TextInputWithCharCount'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
+import ButtonContainer from './ButtonContainer';
 
 
 class NewCardView extends React.Component {
@@ -63,7 +64,9 @@ class NewCardView extends React.Component {
             <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
                 <TextInputWithCharCount placeholder='Question' maxLength={maxLength} value={this.state.question} onChangeText={(text) => this.setState({ question: text })} style={styles.input} />
                 <TextInputWithCharCount placeholder='Answer' maxLength={maxLength}  value={this.state.answer} onChangeText={(text) => this.setState({ answer: text })} style={styles.input}/>
+                <ButtonContainer>
                 <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
+                </ButtonContainer>
             </KeyboardAvoidingView>
         )
     }
@@ -85,7 +88,6 @@ const styles = StyleSheet.create({
         color: white,
         backgroundColor: orange,
         borderColor: orange,
-        margin: 40
     }
 })
 

@@ -6,6 +6,7 @@ import { orange, white, darkBlue, lightBlue } from '../utils/colors'
 import { addDeck } from '../actions'
 
 import TextInputWithCharCount from './TextInputWithCharCount'
+import ButtonContainer from './ButtonContainer';
 
 class NewDeckView extends React.Component {
 
@@ -55,7 +56,9 @@ class NewDeckView extends React.Component {
                 <Text style={styles.text}>What is the title of your new deck?</Text>
                 <View style={styles.inputContainer}>
                     <TextInputWithCharCount placeholder='Deck title' maxLength={maxLength} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}/>
+                    <ButtonContainer>
                     <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
+                    </ButtonContainer>
                 </View>
             </KeyboardAvoidingView>
         )
@@ -91,7 +94,6 @@ const styles = StyleSheet.create({
         color: white,
         backgroundColor: orange,
         borderColor: orange,
-        margin: 40
     }
 })
 

@@ -9,6 +9,7 @@ import TextButton from './TextButton'
 import { deleteAllDecks, getDecks } from '../actions'
 
 import Deck from './Deck'
+import ButtonContainer from './ButtonContainer';
 
 class DeckListView extends React.Component {
 
@@ -44,12 +45,16 @@ class DeckListView extends React.Component {
 
     createDecksAvailableComponent = () => {
         return <View>
-            <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
+            <ButtonContainer>
+                <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
+            </ButtonContainer>
             <Text style={styles.decks}>Available decks:</Text>
-            <FlatList
-                data={this.props.decks}
-                renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
-                keyExtractor={(deck, index) => (deck.title)} />
+            <View>
+                <FlatList
+                    data={this.props.decks}
+                    renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
+                    keyExtractor={(deck, index) => (deck.title)} />
+            </View>
         </View>
     }
 
@@ -67,7 +72,6 @@ const styles = StyleSheet.create({
         backgroundColor: orange,
         color: white,
         borderColor: orange,
-        marginBottom: 20,
     },
     sorry: {
         textAlign: 'center',

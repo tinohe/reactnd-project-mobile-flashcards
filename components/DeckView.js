@@ -6,6 +6,8 @@ import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue } from '../uti
 import {getCardsText} from '../utils/utils'
 import TextButton from './TextButton'
 import Deck from './Deck'
+import ButtonContainer from './ButtonContainer'
+
 
 class DeckView extends React.Component {
 
@@ -26,10 +28,10 @@ class DeckView extends React.Component {
                             <Text style={styles.title}>{deck.title}</Text>
                             <Text style={styles.cards}>{deck.cards.length} {getCardsText(deck.cards.length)}</Text>
                         </View>
-                        <View style={styles.buttonContainer}>
+                        <ButtonContainer>
                             <TextButton style={styles.addCard} onPress={this.onAddCard}>Add card</TextButton>
                             <TextButton style={styles.startQuiz} onPress={this.onStartQuiz}>Start quiz</TextButton>
-                        </View>
+                        </ButtonContainer>
                     </View>
                 }
             </View>

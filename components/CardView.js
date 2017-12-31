@@ -6,6 +6,7 @@ import { darkOrange, orange, white, darkBlue, lightBlue, grayBlue, lightGreen, l
 import TextButton from './TextButton'
 
 import Deck from './Deck'
+import ButtonContainer from './ButtonContainer'
 
 class CardView extends React.Component {
 
@@ -53,10 +54,10 @@ class CardView extends React.Component {
             <Text style={styles.scoreHeadline}>Your final score for deck</Text>
             <Text style={styles.scoreDeckTitle}>'{deck.title}':</Text>
             <Text style={styles.scoreResult}>{this.state.noOfCorrectAnswers} out of {totalCardCount} answers were correct!</Text>
-            <View style={styles.buttonContainer}>
+            <ButtonContainer>
                 <TextButton style={styles.backToDeck} onPress={this.onBackToDeck}>Back to deck</TextButton>
                 <TextButton style={styles.restart} onPress={this.onRestart}>Restart quiz</TextButton>
-            </View>
+            </ButtonContainer>
         </View>
     }
 
@@ -73,12 +74,14 @@ class CardView extends React.Component {
                     style={[styles.questionAnswer, { transform: [{ scale: this.state.bounceValue }] }]}>
                     {this.state.showAnswer ? card.answer : card.question}
                 </Animated.Text>
-                <View style={styles.buttonContainer}>
+                <ButtonContainer>
                     <TextButton style={styles.toggleAnswer} onPress={this.onToggleAnswer}>{this.state.showAnswer ? 'Show question' : 'Show answer'}</TextButton>
-                </View>
-                <Animated.View style={[styles.buttonContainer, { opacity }]}>
-                    <TextButton style={styles.correct} onPress={this.onCorrect} disabled={!this.state.showAnswer}>Correct</TextButton>
-                    <TextButton style={styles.incorrect} onPress={this.onIncorrect} disabled={!this.state.showAnswer}>Incorrect</TextButton>
+                </ButtonContainer>
+                <Animated.View style={{ opacity }}>
+                    <ButtonContainer>
+                        <TextButton style={styles.correct} onPress={this.onCorrect} disabled={!this.state.showAnswer}>Correct</TextButton>
+                        <TextButton style={styles.incorrect} onPress={this.onIncorrect} disabled={!this.state.showAnswer}>Incorrect</TextButton>
+                    </ButtonContainer>
                 </Animated.View>
             </View>
         </View>
@@ -157,10 +160,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: darkBlue,
         fontSize: 26
-    },
-    buttonContainer: {
-        justifyContent: 'center',
-        padding: 50,
     },
     toggleAnswer: {
         backgroundColor: orange,

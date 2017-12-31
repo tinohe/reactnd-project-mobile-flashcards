@@ -50,7 +50,8 @@ class CardView extends React.Component {
         const totalCardCount = deck.cards.length
 
         return <View>
-            <Text style={styles.scoreHeadline}>Your final score for deck '{deck.title}':</Text>
+            <Text style={styles.scoreHeadline}>Your final score for deck</Text>
+            <Text style={styles.scoreDeckTitle}>'{deck.title}':</Text>
             <Text style={styles.scoreResult}>{this.state.noOfCorrectAnswers} out of {totalCardCount} answers were correct!</Text>
             <View style={styles.buttonContainer}>
                 <TextButton style={styles.backToDeck} onPress={this.onBackToDeck}>Back to deck</TextButton>
@@ -131,6 +132,13 @@ const styles = StyleSheet.create({
         fontSize: 26,
         color: darkBlue,
         textAlign: 'center'
+    },
+    scoreDeckTitle: {
+        fontSize: 26,
+        color: darkBlue,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        margin: 10
     },
     scoreResult: {
         fontSize: 18,

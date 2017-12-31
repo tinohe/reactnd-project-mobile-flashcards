@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-export default ButtonContainer = ({ children }) => {
+export default ButtonContainer = ({ children, style = {} }) => {
     return (
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, style,]}>
             {children}
         </View>
     )
@@ -11,7 +11,6 @@ export default ButtonContainer = ({ children }) => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        justifyContent: 'center',
         padding: 50,
     },
 })

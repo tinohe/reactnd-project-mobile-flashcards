@@ -44,17 +44,15 @@ class DeckListView extends React.Component {
     }
 
     createDecksAvailableComponent = () => {
-        return <View>
-            <ButtonContainer>
+        return <View style={{ flex: 1 }}>
+            <ButtonContainer style={{ paddingBottom: 20, paddingTop: 0 }}>
                 <TextButton style={styles.deleteAllDecks} onPress={this.onDeleteAllDecks}>Delete all decks</TextButton>
             </ButtonContainer>
             <Text style={styles.decks}>Available decks:</Text>
-            <View>
-                <FlatList
-                    data={this.props.decks}
-                    renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
-                    keyExtractor={(deck, index) => (deck.title)} />
-            </View>
+            <FlatList
+                data={this.props.decks}
+                renderItem={({ item }) => <Deck key={item.title} deck={item} navigation={this.props.navigation} />}
+                keyExtractor={(deck, index) => (deck.title)} />
         </View>
     }
 
@@ -66,6 +64,7 @@ class DeckListView extends React.Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
+        flex: 1,
         margin: 20
     },
     deleteAllDecks: {

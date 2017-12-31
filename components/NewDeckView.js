@@ -5,7 +5,7 @@ import TextButton from './TextButton'
 import { orange, white, darkBlue, lightBlue } from '../utils/colors'
 import { addDeck } from '../actions'
 
-import CharCount from './CharCount'
+import TextInputWithCharCount from './TextInputWithCharCount'
 
 class NewDeckView extends React.Component {
 
@@ -54,8 +54,7 @@ class NewDeckView extends React.Component {
             <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
                 <Text style={styles.text}>What is the title of your new deck?</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput placeholder='Deck title' maxLength={maxLength} style={styles.input} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}></TextInput>
-                    <CharCount maxLength={maxLength} currentLength={this.state.title.length} />
+                    <TextInputWithCharCount placeholder='Deck title' maxLength={maxLength} value={this.state.title} onChangeText={(text) => this.setState({ title: text })}/>
                     <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
                 </View>
             </KeyboardAvoidingView>

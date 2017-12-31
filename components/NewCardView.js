@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert, Keyboard, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
-import CharCount from './CharCount'
+import TextInputWithCharCount from './TextInputWithCharCount'
 import TextButton from './TextButton'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
@@ -61,10 +61,8 @@ class NewCardView extends React.Component {
 
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
-                <TextInput placeholder='Question' maxLength={50} style={styles.input} value={this.state.question} onChangeText={(text) => this.setState({ question: text })}></TextInput>
-                <CharCount maxLength={maxLength} currentLength={this.state.question.length} />
-                <TextInput placeholder='Answer' maxLength={50} style={styles.input} value={this.state.answer} onChangeText={(text) => this.setState({ answer: text })}></TextInput>
-                <CharCount maxLength={maxLength} currentLength={this.state.answer.length} />
+                <TextInputWithCharCount placeholder='Question' maxLength={maxLength} value={this.state.question} onChangeText={(text) => this.setState({ question: text })} style={styles.input} />
+                <TextInputWithCharCount placeholder='Answer' maxLength={maxLength}  value={this.state.answer} onChangeText={(text) => this.setState({ answer: text })} style={styles.input}/>
                 <TextButton style={styles.submit} onPress={this.onSubmit}>Submit</TextButton>
             </KeyboardAvoidingView>
         )
@@ -80,12 +78,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     input: {
-        borderColor: orange,
-        borderWidth: 1,
-        borderRadius: 5,
         marginTop: 5,
         marginBottom: 5,
-        padding: 10
     },
     submit: {
         color: white,
